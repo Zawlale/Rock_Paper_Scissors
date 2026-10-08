@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
+/**
+ * Builds the game window and keeps track of the game.
+ */
 public class RockPaperScissorsFrame extends JFrame
 {
     JPanel mainPnl;
@@ -46,6 +49,9 @@ public class RockPaperScissorsFrame extends JFrame
     Strategy mostUsed = new MostUsed();
     Strategy lastUsed = new LastUsed();
 
+    /**
+     * Sets up the window, buttons, score, and results.
+     */
     public RockPaperScissorsFrame()
     {
         mainPnl = new JPanel();
@@ -80,6 +86,9 @@ public class RockPaperScissorsFrame extends JFrame
         setVisible(true);
     }
 
+    /**
+     * Adds the move buttons and the quit button.
+     */
     private void createControlPanel()
     {
         controlPnl = new JPanel();
@@ -124,6 +133,13 @@ public class RockPaperScissorsFrame extends JFrame
         controlPnl.add(quitBtn);
     }
 
+    /**
+     * Makes a button with a name and a picture.
+     *
+     * @param text the name on the button
+     * @param imageFile the path to the picture
+     * @return the finished button
+     */
     private JButton createButton(String text, String imageFile)
     {
         JButton button = new JButton(text);
@@ -145,6 +161,9 @@ public class RockPaperScissorsFrame extends JFrame
         return button;
     }
 
+    /**
+     * Adds the score fields and makes them read only.
+     */
     private void createStatsPanel()
     {
         statsPnl = new JPanel();
@@ -174,6 +193,9 @@ public class RockPaperScissorsFrame extends JFrame
         statsPnl.add(tiesTF);
     }
 
+    /**
+     * Adds the results area with a scroll bar.
+     */
     private void createDisplayPanel()
     {
         displayPnl = new JPanel();
@@ -188,6 +210,12 @@ public class RockPaperScissorsFrame extends JFrame
         displayPnl.add(scroller, BorderLayout.CENTER);
     }
 
+    /**
+     * Plays one round and updates the score and results.
+     * Saves the player's move after the computer picks its move.
+     *
+     * @param playerMove the move the player clicked
+     */
     private void playRound(String playerMove)
     {
         int chance = rnd.nextInt(100) + 1;
@@ -274,6 +302,12 @@ public class RockPaperScissorsFrame extends JFrame
         lastPlayerMove = playerMove;
     }
 
+    /**
+     * Changes a move letter into its full name.
+     *
+     * @param move the letter R, P, or S
+     * @return the name rock, paper, or scissors
+     */
     private String moveName(String move)
     {
         String name = "";
@@ -294,6 +328,12 @@ public class RockPaperScissorsFrame extends JFrame
         return name;
     }
 
+    /**
+     * Gets the message explaining why a move won.
+     *
+     * @param move the winning move
+     * @return the message for that move
+     */
     private String winningMessage(String move)
     {
         String message = "";
@@ -314,6 +354,12 @@ public class RockPaperScissorsFrame extends JFrame
         return message;
     }
 
+    /**
+     * Finds the move that beats another move.
+     *
+     * @param move the move to beat
+     * @return the move that wins against it
+     */
     private String counterMove(String move)
     {
         String computerMove = "";
@@ -334,6 +380,13 @@ public class RockPaperScissorsFrame extends JFrame
         return computerMove;
     }
 
+    /**
+     * Picks a move with the given use count.
+     * If moves have the same count, picks one randomly.
+     *
+     * @param count the use count to look for
+     * @return a move with that count
+     */
     private String pickMove(int count)
     {
         String[] choices = new String[3];
@@ -360,8 +413,17 @@ public class RockPaperScissorsFrame extends JFrame
         return choices[rnd.nextInt(total)];
     }
 
+    /**
+     * Tries to beat the player's least used move.
+     */
     class LeastUsed implements Strategy
     {
+        /**
+         * Finds a least used move and picks a move to beat it.
+         *
+         * @param playerMove the current choice, not used here
+         * @return the computer's move
+         */
         @Override
         public String getMove(String playerMove)
         {
@@ -382,8 +444,17 @@ public class RockPaperScissorsFrame extends JFrame
         }
     }
 
+    /**
+     * Tries to beat the player's most used move.
+     */
     class MostUsed implements Strategy
     {
+        /**
+         * Finds a most used move and picks a move to beat it.
+         *
+         * @param playerMove the current choice, not used here
+         * @return the computer's move
+         */
         @Override
         public String getMove(String playerMove)
         {
@@ -404,8 +475,18 @@ public class RockPaperScissorsFrame extends JFrame
         }
     }
 
+    /**
+     * Copies the player's move from the last round.
+     */
     class LastUsed implements Strategy
     {
+        /**
+         * Gets the player's previous move.
+         * Only used after the first round.
+         *
+         * @param playerMove the current choice, not used here
+         * @return the player's move from the last round
+         */
         @Override
         public String getMove(String playerMove)
         {

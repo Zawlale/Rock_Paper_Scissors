@@ -1,9 +1,18 @@
 import java.util.Random;
 
+/**
+ * Picks a random move for the computer.
+ */
 public class RandomStrategy implements Strategy
 {
     Random rnd = new Random();
 
+    /**
+     * Randomly picks rock, paper, or scissors.
+     *
+     * @param playerMove the player's choice, not used here
+     * @return the computer's random move
+     */
     @Override
     public String getMove(String playerMove)
     {

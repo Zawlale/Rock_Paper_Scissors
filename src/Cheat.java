@@ -1,5 +1,14 @@
+/**
+ * Picks a move that beats the player's current choice.
+ */
 public class Cheat implements Strategy
 {
+    /**
+     * Gets the winning move against the player.
+     *
+     * @param playerMove the player's current choice
+     * @return the move that beats the player
+     */
     @Override
     public String getMove(String playerMove)
     {
